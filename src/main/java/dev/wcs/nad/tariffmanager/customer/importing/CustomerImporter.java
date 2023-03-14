@@ -21,10 +21,11 @@ import java.util.List;
 public class CustomerImporter {
 
     private final int juniorCustomerDiscountPercentage;
-    // Challenge: Add other discount percentage here and as constructor-injected parameter
+    private final int specialCustomerDiscountPercentage;
 
-    public CustomerImporter(@Value("${junior.customer.discount.percent}") int juniorCustomerDiscountPercentage) {
+    public CustomerImporter(@Value("${junior.customer.discount.percent}") int juniorCustomerDiscountPercentage, @Value("${special.customer.discount.percent}") int specialCustomerDiscountPercentage) {
         this.juniorCustomerDiscountPercentage = juniorCustomerDiscountPercentage;
+        this.specialCustomerDiscountPercentage = specialCustomerDiscountPercentage;
     }
 
     public List<Customer> importCustomers(File customerCsv) {
