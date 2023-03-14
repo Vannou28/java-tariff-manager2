@@ -56,7 +56,7 @@ public class CustomerImporter {
             switch (type.toUpperCase()) {
                 case "E": {
                     // Challenge: If you added a discount for this customer type, add the discount to the constructor here
-                    SpecialCustomer specialCustomer = new SpecialCustomer(id, name, email, birthDate, lastBuyDate);
+                    SpecialCustomer specialCustomer = new SpecialCustomer(specialCustomerDiscountPercentage, id, name, email, birthDate, lastBuyDate);
                     return specialCustomer;
                 }
                 case "V": {
