@@ -31,8 +31,9 @@ public class CustomerMapperTest {
 
     @Test
     public void shouldMapEntityToDto() {
-        // Challenge: Add the Entity to Dto mapping here.
-        throw new NotImplementedException("Add mapping here and remove this exception.");
+        Customer customerEntity = createFakeCustomerEntity();
+        CustomerDto customerDto = customerMapper.convertEntityToDto(customerEntity);
+        assertThat(customerEntity.getBirthdate()).isEqualTo(customerDto.getBirthdate());
     }
 
     private Customer createFakeCustomerEntity() {
