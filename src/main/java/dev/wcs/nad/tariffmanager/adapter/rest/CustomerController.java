@@ -45,4 +45,15 @@ public class CustomerController {
         Customer customerEntity = customerService.assignAddress(customerId, entityToDtoMapper.mapAddressDto(addressDto));
         return ResponseEntity.ok(entityToDtoMapper.customerToCustomerDto(customerEntity));
     }
+
+    @GetMapping ("/api/customersOfLegalAge")
+    public List<CustomerDto> showCustomersOfLegalAge(@RequestParam (value  = "lastname", required = false) String lastname){
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        Iterable<Customer> relevantCustomers = StringUtils.hasText(lastname) ? customerService.filterOfLegalAgeAndLastname(lastname) : customerService.filterOfLegalAgeCustomersInRepository();
+        for (Customer customer: relevantCustomers) {
+            customerDtos.add(entityToDtoMapper.customerToCustomerDto(customer));
+        }
+        return customerDtos;
+    }
+
 }
