@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/public/customer/")
+@RequestMapping("/public/customer")
 public class ContractView {
 
     private final ContractService contractService;
@@ -33,10 +33,14 @@ public class ContractView {
         List<ContractInfoDto> contractInfoDtos = new ArrayList<>();
         // Challenge:
         // 1. Read Contracts for User from Service
+        List<Contract> contracts = contractService.readContractsForUser(custId);
         // 2. Map Contract objects to ContractInfoDto objects and add to List
+        
+        contractInfoDtos = entityToDtoMapper.contractsToContractInfosDto(contracts);
+       
         // 3. Redirect to a new page "customerContractsListView"
-
-        return null;
+        model.addAttribute("contractInfo", contractInfoDtos);
+        return "customerContractsListView";
     }
 
 }
