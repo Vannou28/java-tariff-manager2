@@ -32,22 +32,24 @@ public class WebSecurityConfig {
         // Only allow frames if using h2 as the database for console
         http.headers().frameOptions().disable();
         http.authorizeHttpRequests()
-        .anyRequest().permitAll()
-        .and()
-            .formLogin()
-                .loginPage("/public/sign-in").permitAll()
-                .loginProcessingUrl("/public/do-sign-in")
-                .defaultSuccessUrl("/public/restricted/view")
-                .failureUrl("/public/sign-in?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-        .and()
-            .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/public/logout"))
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .logoutSuccessUrl("/public/index")
-                .deleteCookies("JSESSIONID");
+            .requestMatchers("/public/customer/**").hasAnyRole("BACKOFFICE","ADMIN")
+            .requestMatchers("/public/admin/**").hasRole("ADMIN")
+            .anyRequest().permitAll()
+            .and()
+                .formLogin()
+                    .loginPage("/public/sign-in").permitAll()
+                    .loginProcessingUrl("/public/do-sign-in")
+                    .defaultSuccessUrl("/public/restricted/view")
+                    .failureUrl("/public/sign-in?error=true")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+            .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/public/logout"))
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true)
+                    .logoutSuccessUrl("/public/index")
+                    .deleteCookies("JSESSIONID");
 
 
         return http.build();

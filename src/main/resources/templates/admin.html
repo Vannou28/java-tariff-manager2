@@ -12,6 +12,20 @@
     </div>
     <br/>
     <a th:href="@{/public/index}">Back</a>
+
+    <div class="container">
+        <table>
+        <tr>
+            <th>USER</th>
+
+        </tr>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.toString}" />
+        </tr>
+        </table>
+    </div>
+
+
 </section>
 </body>
 </html>
